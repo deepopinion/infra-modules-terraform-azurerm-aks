@@ -1337,6 +1337,7 @@ variable "secret_rotation_interval" {
 variable "service_mesh_profile" {
   type = object({
     mode                             = string
+    revisions                        = optional(list(string), ["default"])
     internal_ingress_gateway_enabled = optional(bool, true)
     external_ingress_gateway_enabled = optional(bool, true)
   })
