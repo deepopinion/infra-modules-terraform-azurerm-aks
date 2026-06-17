@@ -625,6 +625,7 @@ resource "azurerm_kubernetes_cluster" "main" {
       default_node_pool[0].orchestrator_version,
       # we might have a random suffix in cluster's name so we have to ignore it here, but we've traced user supplied cluster name by `null_resource.kubernetes_cluster_name_keeper` so when the name is changed we'll recreate this resource.
       name,
+      upgrade_override,
     ]
     replace_triggered_by = [
       null_resource.kubernetes_cluster_name_keeper.id
