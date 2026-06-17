@@ -706,7 +706,7 @@ resource "azurerm_kubernetes_cluster" "main" {
       error_message = "Autoscaling on default node pools is only supported when the Kubernetes Cluster is using Virtual Machine Scale Sets type nodes."
     }
     precondition {
-      condition     = var.auto_scaling_enabled == true || try(var.agents_count, 0) >= 1
+      condition     = try(var.auto_scaling_enabled == true || var.agents_count >= 1, true)
       error_message = "`agents_count` must be set to a value >= 1 when `auto_scaling_enabled` is `false`."
     }
     precondition {
