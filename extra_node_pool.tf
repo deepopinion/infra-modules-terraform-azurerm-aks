@@ -150,6 +150,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool_create_before_destroy
     ignore_changes = [
       name,
       orchestrator_version,
+      auto_scaling_enabled,
+      min_count,
+      max_count,
+      vnet_subnet_id,
+      host_encryption_enabled,
     ]
     replace_triggered_by = [
       null_resource.pool_name_keeper[each.key],
@@ -323,6 +328,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool_create_after_destroy"
   lifecycle {
     ignore_changes = [
       orchestrator_version,
+      auto_scaling_enabled,
+      min_count,
+      max_count,
+      vnet_subnet_id,
+      host_encryption_enabled,
     ]
 
     precondition {
