@@ -17,9 +17,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool_create_before_destroy
   host_encryption_enabled       = each.value.host_encryption_enabled
   host_group_id                 = each.value.host_group_id
   kubelet_disk_type             = each.value.kubelet_disk_type
-  max_count                     = each.value.max_count
+  max_count                     = try(each.value.auto_scaling_enabled, false) ? each.value.max_count : null
   max_pods                      = each.value.max_pods
-  min_count                     = each.value.min_count
+  min_count                     = try(each.value.auto_scaling_enabled, false) ? each.value.min_count : null
   mode                          = each.value.mode
   node_count                    = each.value.node_count
   node_labels                   = each.value.node_labels
@@ -203,9 +203,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "node_pool_create_after_destroy"
   host_encryption_enabled       = each.value.host_encryption_enabled
   host_group_id                 = each.value.host_group_id
   kubelet_disk_type             = each.value.kubelet_disk_type
-  max_count                     = each.value.max_count
+  max_count                     = try(each.value.auto_scaling_enabled, false) ? each.value.max_count : null
   max_pods                      = each.value.max_pods
-  min_count                     = each.value.min_count
+  min_count                     = try(each.value.auto_scaling_enabled, false) ? each.value.min_count : null
   mode                          = each.value.mode
   node_count                    = each.value.node_count
   node_labels                   = each.value.node_labels
